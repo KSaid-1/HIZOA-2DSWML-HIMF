@@ -10,11 +10,11 @@
 from math import*
 from numpy import*
 import numpy as np
-from scipy.integrate import quad, dblquad
 import scipy.optimize
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.ticker import NullFormatter
+from scipy import integrate
 #------------------------------------------------------------------------------------#
 #------------Read your data----------------------------------------------------------#
 #------------------------------------------------------------------------------------#
@@ -67,7 +67,12 @@ flux01 = np.array(flux_0)
 speak01 = np.array(S_0)
 D_lim = np.max(D_Mpc)
 slim = 0.022
-area = 1230 #l fraction 216/360 = 0.6 & b fraction 10/180 = 0.05 ---> 0.03x41000 = 1230 deg^2
+#area = 1230 #l fraction 216/360 = 0.6 & b fraction 10/180 = 0.05 ---> 0.03x41000 = 1230 deg^2
+def f(x):
+    return np.sin(x)
+resu = integrate.quad(f, np.radians(85),np.radians(95))
+area = resu[0]*np.radians(216)*180.**2/np.pi**2
+print (area)
 print ('HIZOA sources: ',len(mHI01),np.max(D_Mpc))
 #------------------------------------------------------------------------------------#
 #------------------------------------------------------------------------------------#
